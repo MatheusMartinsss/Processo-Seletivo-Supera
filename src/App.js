@@ -1,9 +1,10 @@
-
+import ProdutosList from "./Componentes/ProdutosList/produtos";
+import GlobalProvider from "./context/GlobalContext";
 function App() {
   return (
-    <div>
-      
-    </div>
+    <GlobalProvider>
+        <ProdutosList />
+    </GlobalProvider>
   );
 }
 

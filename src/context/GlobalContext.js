@@ -1,27 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import Api from '../services/api';
-const GlobalContext = React.createContext(null)
+export const GlobalContext = React.createContext(null)
 
-function Context({ children }) {
+function GlobalProvider({ children }) {
 
-    const [Produtos, setProdutos] = useState([])
+    const [Produtos, setProdutos] = useState({
+        isLoad: false,
+        Data: []
+    })
+    useEffect(() => {
 
-    useEffect(async () =>{
-        const result = await Api.get('/produtos')
+        LoadProdutos();
+
+    }, [])
+    async function LoadProdutos() {
+        await Api.get('/produtos') 
             .then(result =>{
-                setProdutos(result)
-                console.log(result)
+                setProdutos({ isLoad: true, Data: result.data })
             })
             .catch(err =>{
                 console.log(err)
             })
-    },[])
-
+    }
     return (
-        <GlobalContext.Provider value={Produtos}>
+        <GlobalContext.Provider value={{Produtos}}>
             {children}
         </GlobalContext.Provider>
     );
 }
 
-export default Context;
+export default GlobalProvider;

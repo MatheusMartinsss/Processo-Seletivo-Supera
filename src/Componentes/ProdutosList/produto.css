@@ -1,0 +1,26 @@
+.produto-card-container{
+    width: 250px;
+    background-color: #FFFAFA;
+    padding: 10px;
+    border: 1px solid #D3D3D3;
+    box-sizing: border-box;
+}
+.produto-card-flex{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+}
+.produto-card-image{
+    justify-content:center;
+    align-items: center;
+    width: 100%;
+}
+.produto-card-image img{
+    width: 100%;
+
+}
+.produto-card-item-container{
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+}
