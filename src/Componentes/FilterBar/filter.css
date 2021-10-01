@@ -1,8 +1,8 @@
 .filter-container{
-    width: 10%;
- 
+    width: 30%;
+    background-color: #FEFDFB;
+    padding: 5px;
 }
 .filter-content{
     justify-content: center;
-    text-align: center;
 }

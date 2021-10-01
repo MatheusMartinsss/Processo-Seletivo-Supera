@@ -7,7 +7,6 @@ function Filters() {
         <div className='filter-container'>
             <div className='filter-content'>
                 <Typography variant='h6'>Filtros</Typography>
-                <Divider></Divider>
             </div>
         </div>
     );

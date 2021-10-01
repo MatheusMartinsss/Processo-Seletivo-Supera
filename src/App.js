@@ -9,8 +9,10 @@ function App() {
     <GlobalProvider>
       <div className='app-container'>
         <Header />
-
-        <ProdutosList />
+        <div style = {{display: 'flex', width:"70%", margin:'auto', gap:'10px'}}>
+          <Filters />
+          <ProdutosList />
+        </div>
 
         <Footer />
       </div>
