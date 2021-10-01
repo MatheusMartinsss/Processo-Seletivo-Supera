@@ -4,14 +4,14 @@
       "id": 312,
       "name": "Super Mario Odyssey",
       "price": 197.88,
-      "score": 100,
+      "score": 120,
       "image": "super-mario-odyssey.png"
     },
     {
       "id": 201,
       "name": "Call Of Duty Infinite Warfare",
       "price": 49.99,
-      "score": 80,
+      "score": 150,
       "image": "call-of-duty-infinite-warfare.png"
     },
     {
@@ -46,7 +46,7 @@
       "id": 31,
       "name": "Terra Média: Sombras de Mordor",
       "price": 79.99,
-      "score": 50,
+      "score": 100,
       "image": "terra-media-sombras-de-mordor.png"
     },
     {

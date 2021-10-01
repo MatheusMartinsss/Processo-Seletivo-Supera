@@ -1,6 +1,6 @@
 import React from 'react';
 import './produto.css'
-import { Typography , Button} from '@material-ui/core'
+import { Typography , Button, Rating} from '@material-ui/core'
 
 function Produto({ data }) {
 
@@ -19,9 +19,7 @@ function Produto({ data }) {
                 <Typography color = '#32CD32' variant='caption'>
                     {price}
                 </Typography>
-                <Typography variant='caption'>
-                    {score}
-                </Typography>
+                <Rating readOnly max = {5} defaultValue = {1} precision = {0.5} value = {score/100}></Rating>
             </div>
             <Button >Adicionar</Button>
         </div>
