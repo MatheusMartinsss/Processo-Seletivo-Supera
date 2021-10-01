@@ -2,11 +2,11 @@
     max-width: 1200px;
     min-width: 200px;
     margin: auto;
-}
 
+}
 .produtos-list-flex{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 15px;
 }

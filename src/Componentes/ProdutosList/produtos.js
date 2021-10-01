@@ -2,12 +2,14 @@ import React from 'react';
 import { GlobalContext } from '../../context/GlobalContext'
 import './produtos.css'
 import Produto from './produto';
+import Filters from '../FilterBar/Filters';
 
 
 function ProdutosList() {
     const { Produtos } = React.useContext(GlobalContext)
     return (
         <div>
+            <Filters/>
             {Produtos.isLoad ?
                 <div className='produtos-list-container'>
                     <div className='produtos-list-flex'>
