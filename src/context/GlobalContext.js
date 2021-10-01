@@ -19,7 +19,9 @@ function GlobalProvider({ children }) {
 
             .then(result => {
 
-                setProdutos({ isLoad: true, Data: result.data })
+                const filter = result.data.sort((a, b) => b.id - a.id) // Organiza os produtos pelo ID mais recente ao mais antigo.
+
+                setProdutos({ isLoad: true, Data: filter })
 
             })
             .catch(err => {
@@ -31,29 +33,41 @@ function GlobalProvider({ children }) {
 
         const data = Produtos.Data;
 
+        setProdutos({ isLoad: false }) // Seta o load dos produtos como falso, para caso de muitos produtos, irá exibir a tela de carregamento.
+
         let filtered = []
 
         switch (filter) {
-            case 'price':
+            case 'price':   // Organiza os produtos do menor preço ao maior.
 
                 filtered = data.sort((a, b) => a.price - b.price)
 
-                return setProdutos({ isLoad: true, Data: filtered })
-       
-            case 'score':
+                setProdutos({ isLoad: true, Data: filtered })
+
+                break;
+
+            case 'score':  // Organiza os produtos do menor score ao maior.
 
                 filtered = data.sort((a, b) => b.score - a.score)
 
-                return setProdutos({ isLoad: true, Data: filtered })
+                setProdutos({ isLoad: true, Data: filtered })
 
-            case 'alfabetica':
+                break;
+
+            case 'alfabetica': // Organiza os produtos por ordem alfabetica.
 
                 filtered = data.sort((a, b) => a.name.localeCompare(b.name))
 
-                return setProdutos({ isLoad: true, Data: filtered })
+                setProdutos({ isLoad: true, Data: filtered })
 
-            default:
-                LoadProdutos(); 
+                break;
+
+            default:   // Organiza os produtos do mais recente ao mais antigo.
+
+                filtered = data.sort((a, b) => b.id - a.id)
+
+                setProdutos({ isLoad: true, Data: filtered })
+
                 break;
 
         }
