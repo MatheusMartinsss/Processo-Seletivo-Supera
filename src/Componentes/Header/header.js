@@ -23,6 +23,10 @@ function Header() {
 
     const { ProdutosCart } = React.useContext(GlobalContext)
 
+    const itenstotal = ProdutosCart.reduce((a, b) => a + b.qtd, 0)
+
+
+
     const location = useLocation();
 
     console.log(location.pathname)
@@ -62,7 +66,7 @@ function Header() {
 
                     <IconButton sx={{ width: '15%' }} aria-label="cart">
 
-                        <StyledBadge badgeContent={ProdutosCart.length} color="error">
+                        <StyledBadge badgeContent={itenstotal} color="error">
 
                             <ShoppingCartIcon sx={{ color: '#FFF' }} />
 

@@ -11,13 +11,24 @@ function GlobalProvider({ children }) {
         Data: []
     })
 
+    const ValorFrete = 10.00;
+
     const [ProdutosCart, setProdutosCart] = useState([])
+
+    const [Checkout, setCheckout] = useState([])
 
     useEffect(() => {
 
         LoadProdutos();
 
     }, [])
+
+    useEffect(() => {
+
+        CheckoutSum();
+
+    }, [ProdutosCart])
+
     async function LoadProdutos() {
 
         await Api.get('/produtos')
@@ -43,6 +54,7 @@ function GlobalProvider({ children }) {
         let filtered = []
 
         switch (filter) {
+
             case 'price':   // Organiza os produtos do menor preço ao maior.
 
                 filtered = data.sort((a, b) => a.price - b.price)
@@ -80,36 +92,66 @@ function GlobalProvider({ children }) {
 
     function addToCart({ id, name, price, qtd, image }) {
 
-        console.log('Frist', ProdutosCart)
+        const data = { id, name, price, qtd, image, total: qtd * price };
 
-        const data = { id, name, price, qtd, image };
-
-        const index = ProdutosCart.findIndex((item) => (item.id == id))
-
-        console.log(index)
+        const index = ProdutosCart.findIndex((item) => (item.id === id))
 
         if (index == -1) {
 
             setProdutosCart([...ProdutosCart, data])
-            
-        } else {
-          
-            
+
+        } else {  // Caso já tenha um produto com o mesmo ID no carrinho
+
+            let produto = ProdutosCart.find((item) => item.id == id); // Localiza o produto
+
+            produto.qtd = produto.qtd + qtd; // Soma a qtd atual do produto 
+
+            produto.total = produto.qtd * produto.price; // Atualiza o Preço total
+
+            const UpdateProducts = ProdutosCart.map((item) => { //adiciona o produto formato 
+
+                if (produto.id === item.id) return produto;
+
+                return item;
+            })
+
+            setProdutosCart(UpdateProducts)
+
         }
 
     }
 
-    function RemoveFromCart(id){
+    function RemoveFromCart(id) {
 
         const filtered = ProdutosCart.filter((item) => item.id !== id)
-        
+
         setProdutosCart(filtered)
     }
 
+    function CheckoutSum() {
+
+        const dataFormated = {
+
+            subTotal: ProdutosCart.reduce((a, b) => a + b.total, 0), // Soma o total de todos produtos.
+
+            Frete: ProdutosCart.reduce((a, b) => a + b.qtd * ValorFrete, 0), // Multiplica a quantidade de itens x Valor do frete
+
+            Total: ProdutosCart.reduce((a, b) => a + b.total, 0) + ProdutosCart.reduce((a, b) => a + b.qtd * ValorFrete, 0) // Soma o valor do frete + subtotal
+        }
+
+        setCheckout([dataFormated])
+
+        console.log(dataFormated)
+    }
+
     return (
-        <GlobalContext.Provider value={{ Produtos, ProdutosCart, setProdutosFilter, addToCart, RemoveFromCart }}>
+
+        <GlobalContext.Provider value={{ Produtos, ProdutosCart, Checkout, setProdutosFilter, addToCart, RemoveFromCart }}>
+
             {children}
+
         </GlobalContext.Provider>
+        
     );
 }
 

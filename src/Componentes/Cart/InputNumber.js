@@ -9,7 +9,7 @@ function InputNumber({ defaultValue = 1, minimalValue, onClick, value, onInputCh
 
             <button
 
-                onClick={() => {value > minimalValue && onInputChange(value - 1) }} >
+                onClick={() => {value > minimalValue && onInputChange( - 1) }} >
 
             </button>
 
@@ -19,6 +19,8 @@ function InputNumber({ defaultValue = 1, minimalValue, onClick, value, onInputCh
 
                 value={value ?? defaultValue}
 
+                disabled
+
                 id='inputvalue'
 
                 onChange={(e) => onInputChange(e.target.value)} >
@@ -27,7 +29,7 @@ function InputNumber({ defaultValue = 1, minimalValue, onClick, value, onInputCh
 
             <button
 
-                onClick={() => onInputChange(value + 1)}
+                onClick={() => onInputChange(+ 1)}
 
                 className='plus'>
                     

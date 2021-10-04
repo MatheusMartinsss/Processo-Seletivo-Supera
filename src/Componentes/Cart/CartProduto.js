@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './CartProduto.css'
 
@@ -10,29 +10,43 @@ import { GlobalContext } from '../../context/GlobalContext'
 
 function CartProduto({ data }) {
 
-    const { RemoveFromCart } = React.useContext(GlobalContext)
+    const { RemoveFromCart, addToCart } = React.useContext(GlobalContext)
 
-    const { id, price, name, qtd, image } = data;
+    const { id, price, name, qtd, image, total } = data;
 
     const [Qtd, setQtd] = useState(qtd);
 
     const [Open, setOpen] = useState(false)
 
-    const HandleOpen = () =>{
+    useEffect(() =>{
+
+        setQtd(qtd)
+
+    },[qtd])
+ 
+    const updateQtd = (e) => {
+
+        addToCart({ id, qtd: e })
+
+    }
+
+    const HandleOpen = () => {
+
         setOpen(!Open)
     }
 
-
     const RemoverProduto = (id) => {
-
-        RemoveFromCart(id);
+        HandleOpen();
+        return RemoveFromCart(id);
     }
 
     return (
-        <div className='cart-item-card'>
-            <Divider />
-            <div className='cart-item-card-content'>
 
+        <div className='cart-item-card'>
+
+            <Divider />
+
+            <div className='cart-item-card-content'>
 
                 <div style={{ width: '25%', display: 'flex' }}>
                     <div>
@@ -53,7 +67,7 @@ function CartProduto({ data }) {
 
                     <div style={{ width: "60px", display: 'flex', flexDirection: "column" }}>
 
-                        <InputNumber value={Qtd} minimalValue={1} onInputChange={(e) => setQtd(e)}> </InputNumber>
+                        <InputNumber value={Qtd} minimalValue={1} onInputChange={(e) => updateQtd(e)}> </InputNumber>
 
                         <Button size='small' color='error' variant='text' onClick={() => HandleOpen()}>Remover</Button>
 
@@ -61,7 +75,7 @@ function CartProduto({ data }) {
 
                     <Typography variant='h6'>
 
-                        {price}
+                        {total}
 
                     </Typography>
 
@@ -76,20 +90,35 @@ function CartProduto({ data }) {
                 onClose={() => HandleOpen()}
             >
                 <DialogTitle id="alert-dialog-title">
+
                     {"Remover produto"}
+
                 </DialogTitle>
+
                 <DialogContent>
+
                     <DialogContentText id="alert-dialog-description">
+
                         Você realmente deseja remover esse produto do carrinho?
+
                     </DialogContentText>
+
                 </DialogContent>
+
                 <DialogActions>
-                    <Button onClick={()=> HandleOpen()}>Cancelar</Button>
+
+                    <Button onClick={() => HandleOpen()}>Cancelar</Button>
+
                     <Button onClick={() => RemoverProduto(id)} autoFocus>
+
                         Ok
+
                     </Button>
+
                 </DialogActions>
+
             </Dialog>
+
         </div>
     );
 }
