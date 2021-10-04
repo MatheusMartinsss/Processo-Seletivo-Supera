@@ -1,21 +1,27 @@
-import ProdutosList from "./Componentes/ProdutosList/produtos";
-import Header from "./Componentes/Header/header";
-import Filters from "./Componentes/FilterBar/Filters";
+
 import GlobalProvider from "./context/GlobalContext";
 import './globalstyle.css'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Home from './screens/home'
+import Cart from './screens/Cart'
 import Footer from "./Componentes/Footer/Footer";
+import Header from "./Componentes/Header/header";
 function App() {
   return (
     <GlobalProvider>
-      <div className='app-container'>
-        <Header />
-        <div style = {{display: 'flex', width:"70%", margin:'auto', gap:'10px'}}>
-          <Filters />
-          <ProdutosList />
+      <Router>
+        <div className='app-container' >
+          <Header />
+          <div className='app-body'>
+            <Switch>
+              <Route  exact path='/' component={Home} />
+              <Route  path='/Carrinho' component={Cart} />
+            </Switch>
+          </div>
+            <Footer />
         </div>
+      </Router>
 
-        <Footer />
-      </div>
     </GlobalProvider>
   );
 }

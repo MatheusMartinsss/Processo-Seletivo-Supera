@@ -1,0 +1,14 @@
+.cart-container{
+    background-color: #FEFDFB;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.cart-items-flex{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 20px;
+    height: 700px;
+    overflow-y: auto;
+}

@@ -10,3 +10,7 @@
     background-color: #FBF6F4
     ;
 }
+.app-body {
+    margin-bottom: 25px;
+    min-height: 100vh;
+}

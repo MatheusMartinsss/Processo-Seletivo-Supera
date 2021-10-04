@@ -5,9 +5,14 @@ export const GlobalContext = React.createContext(null)
 function GlobalProvider({ children }) {
 
     const [Produtos, setProdutos] = useState({
+
         isLoad: false,
+
         Data: []
     })
+
+    const [ProdutosCart, setProdutosCart] = useState([])
+
     useEffect(() => {
 
         LoadProdutos();
@@ -72,8 +77,30 @@ function GlobalProvider({ children }) {
 
         }
     }
+
+    function addToCart({ id, name, price, qtd, image }) {
+
+        console.log('Frist', ProdutosCart)
+
+        const data = { id, name, price, qtd, image };
+
+        const index = ProdutosCart.findIndex((item) => (item.id == id))
+
+        console.log(index)
+
+        if (index == -1) {
+
+            setProdutosCart([...ProdutosCart, data])
+            
+        } else {
+          
+            
+        }
+
+    }
+
     return (
-        <GlobalContext.Provider value={{ Produtos, setProdutosFilter }}>
+        <GlobalContext.Provider value={{ Produtos, ProdutosCart, setProdutosFilter, addToCart }}>
             {children}
         </GlobalContext.Provider>
     );

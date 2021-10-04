@@ -1,0 +1,11 @@
+.cart-item-card{
+    width: 100%;
+
+}
+
+.cart-item-card-content{
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}

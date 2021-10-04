@@ -2,10 +2,10 @@
     background-color: #080603;
     width: 100%;
     padding: 20px;
+    flex-wrap: wrap;
 
 }
 .header-content{
-
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;

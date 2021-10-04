@@ -27,7 +27,7 @@ function ProdutosHeader() {
                     <MenuItem value='alfabetica'>Ordem alfabetica</MenuItem>
                 </Select>
             </FormControl>
-            <Divider></Divider>
+
         </div>
     );
 }
