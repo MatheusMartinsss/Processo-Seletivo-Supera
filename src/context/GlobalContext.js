@@ -99,8 +99,15 @@ function GlobalProvider({ children }) {
 
     }
 
+    function RemoveFromCart(id){
+
+        const filtered = ProdutosCart.filter((item) => item.id !== id)
+        
+        setProdutosCart(filtered)
+    }
+
     return (
-        <GlobalContext.Provider value={{ Produtos, ProdutosCart, setProdutosFilter, addToCart }}>
+        <GlobalContext.Provider value={{ Produtos, ProdutosCart, setProdutosFilter, addToCart, RemoveFromCart }}>
             {children}
         </GlobalContext.Provider>
     );

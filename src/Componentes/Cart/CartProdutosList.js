@@ -12,7 +12,6 @@ function CartProdutosList() {
     <div className='cart-container'>
 
       <div className='cart-items-flex'>
-
         {ProdutosCart.map((item) => (
 
           <CartProduto data = {item} />
