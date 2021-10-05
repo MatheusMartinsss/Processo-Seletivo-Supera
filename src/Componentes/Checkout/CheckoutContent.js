@@ -6,7 +6,7 @@ import './CheckoutContent.css'
 
 function CheckoutContent({data}) {
 
-    const {subTotal, Frete, Total} = data;
+    const {subTotal, Frete, Total, Desconto} = data;
 
     return (
     
@@ -28,6 +28,22 @@ function CheckoutContent({data}) {
 
             </div>
 
+            <div className = 'checkout-content-flex'>
+
+                <Typography variant = 'subtitle1'>Desconto</Typography>
+
+                <Typography variant = 'subtitle1'>{Desconto}</Typography>
+
+            </div>
+
+            <div className = 'checkout-content-flex'>
+
+                <Typography variant = 'caption' color = '#FF4500'>(Frete gratis em compras acima de R$250,00)</Typography>
+
+               
+
+            </div>
+
             <Divider/>
 
             <div className = 'checkout-content-flex'>
@@ -37,7 +53,7 @@ function CheckoutContent({data}) {
                 <Typography variant = 'subtitle1'>{Total}</Typography>
 
             </div>
-            
+
         </div>
 
     );

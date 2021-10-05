@@ -7,7 +7,7 @@ import { GlobalContext } from '../../context/GlobalContext';
 function ProdutosHeader() {
     const {setProdutosFilter} = React.useContext(GlobalContext)
     const updateFilter = (target) =>{
-        setProdutosFilter(target)
+        setProdutosFilter({filter: target})
     }
     return (
         <div className='produtos-header-container'>

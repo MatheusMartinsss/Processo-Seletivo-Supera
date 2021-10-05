@@ -1,8 +1,11 @@
 .produto-card-container{
-    width: 250px;
+    width: 200px;
+    min-width: 200px;
     background-color: #FEFDFB;
-    padding: 10px;
     border: 1px solid #D3D3D3;
+}
+.produto-card-content{
+    padding: 10px;
 }
 .produto-card-flex{
     display: flex;

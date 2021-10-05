@@ -1,12 +1,10 @@
 .produtos-list-container{
-    max-width: 1200px;
-    min-width: 200px;
+    width: 60%;
     margin: auto;
-
 }
+
 .produtos-list-flex{
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 20px;
 }

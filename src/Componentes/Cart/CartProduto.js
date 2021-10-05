@@ -14,6 +14,8 @@ function CartProduto({ data }) {
 
     const { id, price, name, qtd, image, total } = data;
 
+    const TotalFormated = total.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})
+
     const [Qtd, setQtd] = useState(qtd);
 
     const [Open, setOpen] = useState(false)
@@ -75,7 +77,7 @@ function CartProduto({ data }) {
 
                     <Typography variant='h6'>
 
-                        {total}
+                        {TotalFormated}
 
                     </Typography>
 

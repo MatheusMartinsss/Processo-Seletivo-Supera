@@ -1,5 +1,5 @@
-import React from 'react';
-import { Typography, IconButton, styled, Badge, TextField, Paper } from '@material-ui/core'
+import React, {useState} from 'react';
+import { Typography, IconButton, styled, Badge, TextField, Paper, Input } from '@material-ui/core'
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
@@ -21,22 +21,25 @@ const StyledBadge = styled(Badge)(() => ({
 
 function Header() {
 
-    const { ProdutosCart } = React.useContext(GlobalContext)
+    const { ProdutosCart, setProdutosFilter} = React.useContext(GlobalContext)
+
+    const [Search, setSearch] = useState('')
 
     const itenstotal = ProdutosCart.reduce((a, b) => a + b.qtd, 0)
 
-
-
     const location = useLocation();
 
-    console.log(location.pathname)
+    const Filter = (target) =>{
+        setSearch(target)
+        setProdutosFilter({filter: 'input', search: Search})
+    }   
 
     return (
         <div className='header-container'>
 
             <div className='header-content'>
 
-                <Typography sx={{ width: '15%' }} color='white' variant='h4'>
+                <Typography sx={{ width: '10%' }} color='white' variant='h4'>
 
                     <NavLink style={{ textDecoration: 'none', color: 'white' }} to='/'>
 
@@ -52,7 +55,7 @@ function Header() {
 
                         sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '70%', minWidth: 150, height: 60, justifyContent: 'center' }}
                     >
-                        <TextField hiddenLabel placeholder='Pesquisar...' fullWidth id="fullWidth" />
+                        <TextField value = {Search} onChange = {(e) => Filter(e.target.value)} hiddenLabel placeholder='Pesquisar...' fullWidth id="fullWidth" />
 
                         <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
 
@@ -64,7 +67,7 @@ function Header() {
                 }
                 <NavLink to='/Carrinho'>
 
-                    <IconButton sx={{ width: '15%' }} aria-label="cart">
+                    <IconButton sx={{ width: '10%' }} aria-label="cart">
 
                         <StyledBadge badgeContent={itenstotal} color="error">
 

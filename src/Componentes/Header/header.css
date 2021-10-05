@@ -1,12 +1,13 @@
 .header-container{
     background-color: #080603;
     width: 100%;
-    padding: 20px;
     flex-wrap: wrap;
 
 }
 .header-content{
+    padding: 25px;
     display: flex;
+    width: 90%;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;

@@ -7,21 +7,25 @@ import ProdutosHeader from './produtosHeader';
 
 
 function ProdutosList() {
+    
     const { Produtos } = React.useContext(GlobalContext)
+
     return (
         <div className='produtos-list-container'>
-            <ProdutosHeader/>
+
+            <ProdutosHeader />
+
             {Produtos.isLoad ?
 
                 <div className='produtos-list-flex'>
+
                     {Produtos.Data.map((item, idx) => (
-
-                        <Produto key={idx} data={item} />
-
+                        <div>
+                            <Produto key={idx} data={item} />
+                        </div>
                     ))}
+
                 </div>
-
-
 
                 : // Caso os Produtos ainda não tenham sido carregados...
 

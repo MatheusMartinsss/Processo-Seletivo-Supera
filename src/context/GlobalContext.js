@@ -2,6 +2,72 @@ import React, { useEffect, useState } from 'react';
 import Api from '../services/api';
 export const GlobalContext = React.createContext(null)
 
+const prods = [{
+    "id": 312,
+    "name": "Super Mario Odyssey",
+    "price": 197.88,
+    "score": 120,
+    "image": "super-mario-odyssey.png"
+},
+{
+    "id": 201,
+    "name": "Call Of Duty Infinite Warfare",
+    "price": 49.99,
+    "score": 150,
+    "image": "call-of-duty-infinite-warfare.png"
+},
+{
+    "id": 102,
+    "name": "The Witcher III Wild Hunt",
+    "price": 119.5,
+    "score": 250,
+    "image": "the-witcher-iii-wild-hunt.png"
+},
+{
+    "id": 99,
+    "name": "Call Of Duty WWII",
+    "price": 249.99,
+    "score": 205,
+    "image": "call-of-duty-wwii.png"
+},
+{
+    "id": 12,
+    "name": "Mortal Kombat XL",
+    "price": 69.99,
+    "score": 150,
+    "image": "mortal-kombat-xl.png"
+},
+{
+    "id": 74,
+    "name": "Shards of Darkness",
+    "price": 71.94,
+    "score": 400,
+    "image": "shards-of-darkness.png"
+},
+{
+    "id": 31,
+    "name": "Terra Média: Sombras de Mordor",
+    "price": 79.99,
+    "score": 100,
+    "image": "terra-media-sombras-de-mordor.png"
+},
+{
+    "id": 420,
+    "name": "FIFA 18",
+    "price": 195.39,
+    "score": 325,
+    "image": "fifa-18.png"
+},
+{
+    "id": 501,
+    "name": "Horizon Zero Dawn",
+    "price": 115.8,
+    "score": 290,
+    "image": "horizon-zero-dawn.png"
+}
+
+]
+
 function GlobalProvider({ children }) {
 
     const [Produtos, setProdutos] = useState({
@@ -23,7 +89,7 @@ function GlobalProvider({ children }) {
 
     }, [])
 
-    useEffect(() => {
+    useEffect(() => { // Chama o CheckoutSum toda vez que a ProdutosCart for atualizada
 
         CheckoutSum();
 
@@ -31,21 +97,29 @@ function GlobalProvider({ children }) {
 
     async function LoadProdutos() {
 
-        await Api.get('/produtos')
+        /*  await Api.get('/produtos')
+  
+              .then(result => {
+  
+                  const filter = result.data.sort((a, b) => b.id - a.id) // Organiza os produtos pelo ID mais recente ao mais antigo.
+  
+                  setProdutos({ isLoad: true, Data: filter })
+  
+              })
+  
+              .catch(err => {
+  
+                  console.log(err)
+  
+              }) */
 
-            .then(result => {
+        const filter = prods.sort((a, b) => b.id - a.id) // Organiza os produtos pelo ID mais recente ao mais antigo.  
+        setProdutos({ isLoad: true, Data: filter })
 
-                const filter = result.data.sort((a, b) => b.id - a.id) // Organiza os produtos pelo ID mais recente ao mais antigo.
-
-                setProdutos({ isLoad: true, Data: filter })
-
-            })
-            .catch(err => {
-
-                console.log(err)
-            })
     }
-    function setProdutosFilter(filter) {
+    function setProdutosFilter({filter, search}) {
+
+        console.log(filter, search)
 
         const data = Produtos.Data;
 
@@ -79,6 +153,16 @@ function GlobalProvider({ children }) {
 
                 break;
 
+            case 'input':
+
+                filtered = data.filter(item => item.name.toLowerCase().includes(search)) 
+                
+                console.log('teste', filtered)
+
+                setProdutos({ isLoad: true, Data: filtered })
+
+                break;  
+
             default:   // Organiza os produtos do mais recente ao mais antigo.
 
                 filtered = data.sort((a, b) => b.id - a.id)
@@ -106,7 +190,7 @@ function GlobalProvider({ children }) {
 
             produto.qtd = produto.qtd + qtd; // Soma a qtd atual do produto 
 
-            produto.total = produto.qtd * produto.price; // Atualiza o Preço total
+            produto.total = produto.qtd * produto.price;
 
             const UpdateProducts = ProdutosCart.map((item) => { //adiciona o produto formato 
 
@@ -136,8 +220,27 @@ function GlobalProvider({ children }) {
 
             Frete: ProdutosCart.reduce((a, b) => a + b.qtd * ValorFrete, 0), // Multiplica a quantidade de itens x Valor do frete
 
-            Total: ProdutosCart.reduce((a, b) => a + b.total, 0) + ProdutosCart.reduce((a, b) => a + b.qtd * ValorFrete, 0) // Soma o valor do frete + subtotal
+            Desconto: 0.00, // Variavel desconto para futuras funções como promoções, etc ... 
+
+            Total: (ProdutosCart.reduce((a, b) => a + b.total, 0) + ProdutosCart.reduce((a, b) => a + b.qtd * ValorFrete, 0))// Soma o valor do frete + subtotal
         }
+
+        if (dataFormated.Total > 250) {
+
+            console.log('Desconto')
+
+            dataFormated.Desconto = dataFormated.Frete
+
+            dataFormated.Total = dataFormated.Total - dataFormated.Desconto;
+        }
+        // Formata os valores para a moeda Brasileira.
+        dataFormated.subTotal = dataFormated.subTotal.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+
+        dataFormated.Frete = dataFormated.Frete.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+
+        dataFormated.Desconto = dataFormated.Desconto.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+
+        dataFormated.Total = dataFormated.Total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 
         setCheckout([dataFormated])
 
@@ -151,7 +254,7 @@ function GlobalProvider({ children }) {
             {children}
 
         </GlobalContext.Provider>
-        
+
     );
 }
 
